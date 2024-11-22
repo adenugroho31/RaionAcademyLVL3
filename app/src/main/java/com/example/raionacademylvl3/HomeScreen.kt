@@ -23,12 +23,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
 @Preview
-fun AppScreen(navController: NavHostController = rememberNavController()) {
+fun AppScreen(
+    navController: NavHostController = rememberNavController(),
+    sharedViewModel: SharedViewModel = viewModel()
+) {
     val appList = listOf(
         AppObject.sepatu,
         AppObject.celana,
@@ -46,16 +50,13 @@ fun AppScreen(navController: NavHostController = rememberNavController()) {
         AppObject.parfum
     )
 
-    var count by remember { mutableIntStateOf(0) }
+    val count = sharedViewModel.counter.value
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {
-                    if (count > 0) count--
-                },
-                modifier = Modifier
-                    .padding(16.dp),
+                onClick = { sharedViewModel.decrementCounter() },
+                modifier = Modifier.padding(16.dp),
                 shape = CircleShape,
                 containerColor = Color.Blue
             ) {

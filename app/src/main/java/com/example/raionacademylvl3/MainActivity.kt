@@ -20,16 +20,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             RaionAcademyLVL3Theme {
                 val navController = rememberNavController()
+                val sharedViewModel: SharedViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+
                 NavHost(
                     navController = navController,
                     startDestination = "app_screen"
                 ) {
                     composable("app_screen") {
-                        AppScreen(navController)
+                        AppScreen(navController, sharedViewModel)
                     }
                     composable("detail_screen/{productName}") { backStackEntry ->
                         val productName = backStackEntry.arguments?.getString("productName")
-                        DetailScreen(productName = productName)
+                        DetailScreen(productName = productName, sharedViewModel = sharedViewModel)
                     }
                 }
             }

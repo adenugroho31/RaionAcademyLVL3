@@ -19,10 +19,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 
 @Composable
-fun DetailScreen(productName: String?) {
+fun DetailScreen(
+    productName: String?,
+    sharedViewModel: SharedViewModel = viewModel()
+) {
     val productDetail = when (productName) {
         "Sepatu Lari" -> ProductDetail.sepatu
         "Celana Pendek" -> ProductDetail.celana
@@ -40,26 +44,20 @@ fun DetailScreen(productName: String?) {
         else -> ProductDetail.sepatu
     }
 
-    var count by remember { mutableIntStateOf(0) }
+    val count = sharedViewModel.counter.value
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {
-                    if (count > 0) count--
-                },
+                onClick = { sharedViewModel.decrementCounter() },
                 modifier = Modifier.padding(16.dp),
                 shape = CircleShape,
                 containerColor = Color.Blue
             ) {
-                Text(
-                    text = count.toString(),
-                    color = Color.White,
-                    fontSize = 18.sp
-                )
+                Text(text = count.toString(), color = Color.White, fontSize = 18.sp)
             }
         },
-        floatingActionButtonPosition = FabPosition.Start // Tombol mengambang di kiri bawah
+        floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -106,7 +104,7 @@ fun DetailScreen(productName: String?) {
                 )
 
                 Button(
-                    onClick = { count++ },
+                    onClick = { sharedViewModel.incrementCounter() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp),

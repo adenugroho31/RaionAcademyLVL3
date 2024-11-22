@@ -37,6 +37,7 @@ fun DetailScreen(
         "Tipe-x Trondol" -> ProductDetail.tipex
         "Horegggggg" -> ProductDetail.horeg
         "Pucelle Perfume" -> ProductDetail.parfum
+        "Laptop Geming" -> ProductDetail.laptop
         else -> ProductDetail.sepatu
     }
 

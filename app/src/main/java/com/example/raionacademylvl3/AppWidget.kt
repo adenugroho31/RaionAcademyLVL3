@@ -15,6 +15,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -33,6 +35,8 @@ fun AppWidget(
             .width(170.dp)
             .height(250.dp)
             .background(Color.White, RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(16.dp))
+            .shadow(0.4.dp, RoundedCornerShape (0.5.dp))
             .clickable { onClick(appEntity) }
     ) {
         Card(
